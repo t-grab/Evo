@@ -2,5 +2,7 @@
 #define STD_HPP
 
 #include <vector>
+#include <array>
+typedef unsigned int uint;
 
-#define
+#endif
