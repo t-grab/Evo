@@ -13,8 +13,7 @@ int main() {
 	fitness.push_back(3);
 	fitness.push_back(4);
 	
-	Evo::Select::FitnessProportional select;
-	vector<uint> idx(select(fitness.begin(), fitness.end(), 3));
+	vector<uint> parent_indices = Evo::Select::fitness_proportional(fitness.begin(), fitness.end(), 3);
 	
 	std::cout << "Amount: " << idx.size() << std::endl;
 	

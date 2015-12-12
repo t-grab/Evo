@@ -8,4 +8,8 @@
 #include <random>
 typedef unsigned int uint;
 
+namespace Evo {
+	static std::mt19937_64 generator(42);
+}
+
 #endif
