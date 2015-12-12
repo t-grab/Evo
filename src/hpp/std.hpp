@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <array>
+#include <tuple>
+#include <algorithm>
+#include <random>
 typedef unsigned int uint;
 
 #endif
