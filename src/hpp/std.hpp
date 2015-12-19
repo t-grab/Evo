@@ -5,6 +5,7 @@
 #include <array>
 #include <tuple>
 #include <algorithm>
+#include <iterator>
 #include <random>
 typedef unsigned int uint;
 

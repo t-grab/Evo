@@ -3,6 +3,7 @@
 
 #include "../std.hpp"
 
+using std::iterator_traits;
 using std::vector;
 using std::uniform_real_distribution;
 using std::accumulate;
@@ -10,7 +11,12 @@ using std::lower_bound;
 using std::partial_sum;
 
 namespace Evo {
-	namespace Select {
+	namespace select {		
+		template<class Iter>
+		typename iterator_traits<Iter>::value_type first(Iter begin, Iter end) {
+			return *begin;
+		}		
+		
 		template<class Iter, class T, class Getter>
 		vector<T> extract_variable(Iter begin, Iter end, Getter get) {
 			vector<T> result;
