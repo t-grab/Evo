@@ -8,13 +8,24 @@ int main() {
 	std::cout << "Evo" << std::endl;
 		
 	std::vector<double> fitness;
-	fitness.push_back(1);
-	fitness.push_back(2);
-	fitness.push_back(1);
-	fitness.push_back(500);
-	fitness.push_back(3);
-	fitness.push_back(4);
-		
+	fitness.push_back(1.);
+	fitness.push_back(2.);
+	fitness.push_back(1.);
+	fitness.push_back(500.);
+	fitness.push_back(3.);
+	fitness.push_back(4.);
+
+    double sum = std::accumulate(fitness.begin(), fitness.end(), 0.);
+    std::vector<double> chosen(2);
+    Evo::sus_select(fitness.begin(), fitness.end(), chosen.begin(), 2U,
+                               [&](double num) { return num / sum; },
+                               [](double num) { return num; }
+    );
+
+    for (auto n : chosen)
+        std::cout << n << std::endl;
+
+	/*
 	vector<double> result(fitness.size());
 	Evo::partial_sum(fitness.begin(), fitness.end(), result.begin(), [](double val) { return val; });
 	

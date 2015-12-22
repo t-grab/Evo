@@ -13,16 +13,16 @@ namespace Evo {
 		
 		typedef typename std::iterator_traits<In>::value_type value_type;
 		typename std::result_of<BinOp(value_type, value_type)>::type acc = value(*first); 
-		*out = acc;
 		
+        *out = acc;
 		while (++first != last) {
-			acc = op(acc, *first);
+			acc = op(acc, value(*first));
 			*++out = acc;
 		}
 		
 		return ++out;
 	}	
-	 
+     
 	// Standard Genetic Algorithm
 		// INIT POPULATION	
 		// EVALUATE INDIVIDUAL in POPULATION
