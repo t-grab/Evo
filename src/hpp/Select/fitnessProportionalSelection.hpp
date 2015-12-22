@@ -2,49 +2,33 @@
 #define FITNESSPROPORTIONALSELECTION_HPP
 
 #include "../std.hpp"
-
-using std::iterator_traits;
-using std::vector;
-using std::uniform_real_distribution;
-using std::accumulate;
-using std::lower_bound;
-using std::partial_sum;
+#include "../algorithm.hpp"
 
 namespace Evo {
-	namespace select {		
-		template<class Iter>
-		typename iterator_traits<Iter>::value_type first(Iter begin, Iter end) {
-			return *begin;
-		}		
-		
-		template<class Iter, class T, class Getter>
-		vector<T> extract_variable(Iter begin, Iter end, Getter get) {
-			vector<T> result;
-			while (begin != end)
-				result.push_back(get(*begin++));
-			return result;
-		}
-		
-		template<class Iter>
-		vector<uint> fitness_proportional(Iter begin, Iter end, double number) {
-			double total = static_cast<double>(accumulate(begin, end, 0.0));
-			uniform_real_distribution<double> generate(0, total);
-					
-			vector<double> probs(end - begin);
-			partial_sum(begin, end, probs.begin());
-				
-			vector<uint> chosen(number);
-			for (auto& idx : chosen)
-				idx = lower_bound(probs.begin(), probs.end(), generate(Evo::generator)) - probs.begin();
-			
-			return chosen;
-		}
-		
-		template<class Iter, class Getter>
-		vector<uint> fitness_proportional(Iter begin, Iter end, double number, Getter get) {
-			vector<double> fitness_values(extract_variable<double>(begin, end, get));
-			return fitness_proportional(fitness_values.begin(), fitness_values.end(), number);
-		}		
+	namespace select {
+        // Value:  value_type -> (0;1]
+        template<typename In, typename Out, typename Value, typename Clone, typename Provider>
+		Out fitness_proportional(In first, In last, Out out, uint num, Value value, Clone clone, Provider val) {
+            if (num == 0)
+                return out;
+
+            typedef typename std::iterator_traits<In>::value_type value_type;
+            typedef typename std::result_of<Value(value_type)>::type fitness_type;
+
+            std::vector<fitness_type> partials(std::distance(first, last));
+            Evo::partial_sum(first, last, partials.begin(), value);
+
+            while (num-- > 0) {
+                uint idx = std::lower_bound(partials.begin(), partials.end(), val()) - partials.begin();
+                In iter = first;
+
+                std::advance(iter, idx);
+                *out = clone(*iter);
+                std::advance(out, 1);
+            }
+
+            return out;
+        }
 	}
 }
 

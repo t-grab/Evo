@@ -5,6 +5,7 @@
 
 #include "algorithm.hpp"
 
+#include "Select/fitnessProportionalSelection.hpp"
 #include "Select/rouletteWheel.hpp"
 #include "Select/stochasticUniversalSampling.hpp"
 

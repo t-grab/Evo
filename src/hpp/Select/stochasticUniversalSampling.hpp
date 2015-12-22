@@ -5,33 +5,25 @@
 #include "../algorithm.hpp"
 
 namespace Evo {
-    template<typename In, typename Out, typename Value, typename Clone>
-    Out sus_select(In first, In last, Out out, uint num, Value value, Clone clone) {
-        if (num == 0)
-            return out;
+    namespace select {
+        template<typename T>
+        class SUS {
+        public:
+            SUS(uint num) : step_size(1.0 / num), value() {
+                std::uniform_real_distribution<T> dist(0, step_size);
+                value = dist(Evo::generator);
+            }
 
-        typedef typename std::iterator_traits<In>::value_type value_type;
-        typedef typename std::result_of<Value(value_type)>::type fitness_type;
+            T operator()() {
+                T temp = value;
+                value += step_size;
 
-        std::vector<fitness_type> partials(std::distance(first, last));
-        Evo::partial_sum(first, last, partials.begin(), value);
-
-        double step_size = 1.0 / num;
-        std::uniform_real_distribution<fitness_type> dist(0, step_size);
-        double val = dist(Evo::generator);
-
-        while (num-- > 0) {
-            uint idx = std::lower_bound(partials.begin(), partials.end(), val) - partials.begin();
-            In iter = first;
-
-            std::advance(iter, idx);
-            *out = clone(*iter);
-            std::advance(out, 1);
-
-            val += step_size;
-        }
-
-        return out;
+                return temp;
+            }
+        private:
+            T step_size;
+            T value;
+        };
     }
 }
 

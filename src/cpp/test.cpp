@@ -1,8 +1,5 @@
 #include "../hpp/evo.hpp"
 #include <iostream>
-#include <iterator>
-#include <vector>
-#include <functional>
 
 int main() {	
 	std::cout << "Evo" << std::endl;
@@ -17,9 +14,10 @@ int main() {
 
     double sum = std::accumulate(fitness.begin(), fitness.end(), 0.);
     std::vector<double> chosen(2);
-    Evo::sus_select(fitness.begin(), fitness.end(), chosen.begin(), 2U,
-                               [&](double num) { return num / sum; },
-                               [](double num) { return num; }
+    Evo::select::fitness_proportional(fitness.begin(), fitness.end(), chosen.begin(), 2U,
+									  [&](double num) { return num / sum; },
+									  [](double num) { return num; },
+									  Evo::select::Roulette_Wheel<double>()
     );
 
     for (auto n : chosen)
