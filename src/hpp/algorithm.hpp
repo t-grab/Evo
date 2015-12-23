@@ -22,7 +22,22 @@ namespace Evo {
 		
 		return ++out;
 	}	
-     
+
+	template<typename In, typename Out, typename Clone>
+	Out sample_with_replacement(In first, In last, Out out, uint k, Clone clone) {
+        std::uniform_int_distribution<uint> dist(0, std::distance(first, last) - 1);
+        while (k-- > 0) {
+            In iter = first;
+            std::advance(iter, dist(Evo::generator));
+
+            *out = clone(*iter);
+            std::advance(out, 1);
+        }
+
+        return out;
+    }
+
+
 	// Standard Genetic Algorithm
 		// INIT POPULATION	
 		// EVALUATE INDIVIDUAL in POPULATION

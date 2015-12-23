@@ -7,12 +7,21 @@ int main() {
 	std::vector<double> fitness;
 	fitness.push_back(1.);
 	fitness.push_back(2.);
-	fitness.push_back(1.);
-	fitness.push_back(500.);
 	fitness.push_back(3.);
+	fitness.push_back(6.);
 	fitness.push_back(4.);
+	fitness.push_back(5.);
 
-    double sum = std::accumulate(fitness.begin(), fitness.end(), 0.);
+    std::vector<double> vals(3);
+    Evo::select::tournament(fitness.begin(), fitness.end(), vals.begin(), 3, 2,
+                            [](double num) { return num; },
+                            [](double num) { return num; }
+    );
+
+    for (auto n : vals)
+        std::cout << n << std::endl;
+
+    /*double sum = std::accumulate(fitness.begin(), fitness.end(), 0.);
     std::vector<double> chosen(2);
     Evo::select::fitness_proportional(fitness.begin(), fitness.end(), chosen.begin(), 2U,
 									  [&](double num) { return num / sum; },

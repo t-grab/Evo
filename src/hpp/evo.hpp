@@ -8,6 +8,7 @@
 #include "Select/fitnessProportionalSelection.hpp"
 #include "Select/rouletteWheel.hpp"
 #include "Select/stochasticUniversalSampling.hpp"
+#include "Select/tournamentSelection.hpp"
 
 #include "Termination/generation.hpp"
 
