@@ -7,8 +7,8 @@
 namespace Evo {
 	namespace select {
         // Value:  value_type -> (0;1]
-        template<typename In, typename Out, typename Value, typename Clone, typename Provider>
-		Out fitness_proportional(In first, In last, Out out, uint num, Value value, Clone clone, Provider val) {
+        template<typename In, typename Out, typename Value, typename Provider>
+		Out fitness_proportional(In first, In last, Out out, uint num, Value value, Provider val) {
             if (num == 0)
                 return out;
 
@@ -23,7 +23,7 @@ namespace Evo {
                 In iter = first;
 
                 std::advance(iter, idx);
-                *out = clone(*iter);
+                *out = *iter;
                 std::advance(out, 1);
             }
 

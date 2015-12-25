@@ -10,6 +10,10 @@
 #include "Select/stochasticUniversalSampling.hpp"
 #include "Select/tournamentSelection.hpp"
 
+#include "Recombine/onePointCrossover.hpp"
+
+#include "Mutate/pointMutation.hpp"
+
 #include "Termination/generation.hpp"
 
 #endif

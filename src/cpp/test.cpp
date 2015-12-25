@@ -1,10 +1,19 @@
 #include "../hpp/evo.hpp"
 #include <iostream>
 
-int main() {	
+int main() {
 	std::cout << "Evo" << std::endl;
-		
-	std::vector<double> fitness;
+
+	std::vector<int> p1 = { 1, 2, 3, 4};
+	std::vector<int> p2 = { 5, 6, 7, 8};
+
+    std::uniform_int_distribution<int> dist(5, 8);
+    Evo::mutate::point(p1, [&](uint pos) { return dist(Evo::generator); });
+
+    for (auto& v : p1)
+        std::cout << v << " ";
+
+	/*std::vector<double> fitness;
 	fitness.push_back(1.);
 	fitness.push_back(2.);
 	fitness.push_back(3.);

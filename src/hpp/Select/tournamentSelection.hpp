@@ -6,13 +6,13 @@
 
 namespace Evo {
     namespace select {
-        template<typename In, typename Out, typename Value, typename Clone>
-        Out tournament(In first, In last, Out out, uint num, uint k, Value value, Clone clone) {
+        template<typename In, typename Out, typename Value>
+        Out tournament(In first, In last, Out out, uint num, uint k, Value value) {
             typedef typename std::iterator_traits<In>::value_type value_type;
 
             while (num-- > 0) {
                 std::vector<value_type> competitors(k);
-                Evo::sample_with_replacement(first, last, competitors.begin(), k, clone);
+                Evo::sample_with_replacement(first, last, competitors.begin(), k);
                 *out = *std::max_element(competitors.begin(), competitors.end(),
                                          [&](const value_type& one, const value_type& two) {
                                              return value(one) < value(two);
