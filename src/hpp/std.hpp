@@ -8,6 +8,7 @@
 #include <iterator>
 #include <random>
 typedef unsigned int uint;
+typedef long unsigned int luint;
 
 namespace Evo {
 	static std::mt19937_64 generator(42);

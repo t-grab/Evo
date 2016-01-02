@@ -56,16 +56,16 @@ namespace Evo {
 	}
 
     template<typename T, typename Out>
-    Out reservoir_sampling_numbers(T low, T high, Out out, uint k) {
-        std::uniform_int_distribution<uint> dist(0, k);
-        uint size = high - low + 1;
+    Out reservoir_sampling_numbers(T low, T high, Out out, luint k) {
+        std::uniform_int_distribution<luint> dist(0, k);
+        luint size = high - low + 1;
 
         for (T i(0); i < k; ++i)
             *std::next(out, i) = i + low;
 
-        for (uint i(k); i < size; ++i) {
-            dist.param(std::uniform_int_distribution<uint>::param_type(0, i));
-            uint j = dist(Evo::generator);
+        for (T i(k); i < size; ++i) {
+            dist.param(std::uniform_int_distribution<luint>::param_type(0, static_cast<luint>(i)));
+            luint j = dist(Evo::generator);
             if (j < k)
                 *std::next(out, j) = i + low;
         }
