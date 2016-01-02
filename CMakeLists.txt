@@ -11,3 +11,5 @@ set(SOURCE_FILES
     src/hpp/std.hpp src/hpp/Select/rouletteWheel.hpp src/hpp/Select/stochasticUniversalSampling.hpp src/hpp/Select/tournamentSelection.hpp src/hpp/Recombine/onePointCrossover.hpp src/hpp/Mutate/pointMutation.hpp src/hpp/Result.hpp)
 
 add_executable(Evo ${SOURCE_FILES})
+
+add_definitions(-std=c++11)

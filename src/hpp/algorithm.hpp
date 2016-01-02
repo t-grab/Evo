@@ -37,6 +37,41 @@ namespace Evo {
         return out;
     }
 
+	template<typename In, typename Out>
+	Out reservoir_sampling(In first, In last, Out out, uint k) {
+        std::uniform_int_distribution<uint> dist(0, k);
+        uint size = std::distance(first, last);
+
+		for (uint i(0); i < k; ++i)
+            *std::next(out, i) = *std::next(first, i);
+
+        for (uint i(k); i < size; ++i) {
+            dist.param(std::uniform_int_distribution<uint>::param_type(0, i));
+            uint j = dist(Evo::generator);
+            if (j < k)
+                *std::next(out, j) = *std::next(first, i);
+        }
+
+        return std::next(out, k);
+	}
+
+    template<typename T, typename Out>
+    Out reservoir_sampling_numbers(T low, T high, Out out, uint k) {
+        std::uniform_int_distribution<uint> dist(0, k);
+        uint size = high - low + 1;
+
+        for (T i(0); i < k; ++i)
+            *std::next(out, i) = i + low;
+
+        for (uint i(k); i < size; ++i) {
+            dist.param(std::uniform_int_distribution<uint>::param_type(0, i));
+            uint j = dist(Evo::generator);
+            if (j < k)
+                *std::next(out, j) = i + low;
+        }
+
+        return std::next(out, k);
+    }
 
 	// Standard Genetic Algorithm
 		// INIT POPULATION	
