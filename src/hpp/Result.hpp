@@ -24,6 +24,10 @@ namespace Evo {
             }
         }
 
+        std::unordered_set<T>& fittest() {
+            return solutions;
+        }
+
         void print(std::ostream& out = std::cout, const std::string& sep = "\t", bool verbose = false) const {
             out << "Generation" << sep << "Max" << sep << "Average" << std::endl;
             for (uint i(0U); i < max_vals.size(); ++i)

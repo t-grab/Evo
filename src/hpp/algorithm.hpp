@@ -7,12 +7,13 @@
 
 namespace Evo {		
 	template<typename In, typename Out, typename Value,
-	 		 typename BinOp = std::plus<typename std::result_of<Value(typename std::iterator_traits<In>::value_type)>::type>>
+	 		 typename BinOp = std::plus<typename std::result_of<Value(const typename std::iterator_traits<In>::value_type&)>::type>>
 	Out partial_sum(In first, In last, Out out, Value value, BinOp op = BinOp()) {
 		if (first == last) return out;
-		
-		typedef typename std::iterator_traits<In>::value_type value_type;
-		typename std::result_of<BinOp(value_type, value_type)>::type acc = value(*first); 
+
+        typedef typename std::iterator_traits<In>::value_type value_type;
+        typedef typename std::result_of<Value(const value_type&)>::type m_type;
+        typename std::result_of<BinOp(m_type, m_type)>::type acc = value(*first);
 		
         *out = acc;
 		while (++first != last) {

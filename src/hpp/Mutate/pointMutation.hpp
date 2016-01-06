@@ -11,7 +11,7 @@ namespace Evo {
             int i = 0;
             for (auto& var : individual) {
                 if (pred())
-                    var = random(i);
+                    var = random(i, var);
                 ++i;
             }
 
@@ -30,8 +30,10 @@ namespace Evo {
             std::vector<idx_type> genes(mutations);
             Evo::reservoir_sampling_numbers(static_cast<idx_type>(0), individual.size(), genes.begin(), mutations);
 
-            for (auto& gene : genes)
-                *std::next(individual.begin(), gene) = random(gene);
+            for (auto& gene : genes) {
+                auto iter = std::next(individual.begin(), gene);
+                *iter = random(gene, *iter);
+            }
 
             return individual;
         }

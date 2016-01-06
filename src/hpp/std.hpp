@@ -1,6 +1,7 @@
 #ifndef STD_HPP
 #define STD_HPP
 
+#include <type_traits>
 #include <vector>
 #include <array>
 #include <tuple>
