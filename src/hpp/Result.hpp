@@ -7,15 +7,17 @@
 #include <string>
 
 namespace Evo {
-    template<typename T, typename M>
+    template<typename T, typename M, typename D>
     class Result {
     public:
-        Result() : max_fitness(), max_vals(), avg_vals(), solutions() {}
+        Result() : max_fitness(), max_vals(), avg_vals(), diversity(), num_solutions(), solutions() {}
 
         template<typename In>
-        void add_generation(M max, M avg, In first, In last) {
+        void add_generation(M max, M avg, D div, In first, In last) {
             max_vals.push_back(max);
             avg_vals.push_back(avg);
+            diversity.push_back(div);
+            num_solutions.push_back(std::distance(first, last));
 
             if (max >= max_fitness) {
                 if (max > max_fitness)
@@ -29,9 +31,9 @@ namespace Evo {
         }
 
         void print(std::ostream& out = std::cout, const std::string& sep = "\t", bool verbose = false) const {
-            out << "Generation" << sep << "Max" << sep << "Average" << std::endl;
+            out << "Generation" << sep << "Max" << sep << "Average" << sep << "Diversity" << sep << "#Fittest" << std::endl;
             for (uint i(0U); i < max_vals.size(); ++i)
-                out << i << sep << max_vals[i] << sep << avg_vals[i] << std::endl;
+                out << i << sep << max_vals[i] << sep << avg_vals[i] << sep << diversity[i] << sep << num_solutions[i] << std::endl;
 
             if (verbose)
                 for (auto& solution : solutions)
@@ -42,6 +44,8 @@ namespace Evo {
 
         std::vector<M> max_vals;
         std::vector<M> avg_vals;
+        std::vector<D> diversity;
+        std::vector<unsigned int> num_solutions;
         std::unordered_set<T> solutions;
     };
 }
