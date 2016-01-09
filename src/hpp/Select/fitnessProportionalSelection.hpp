@@ -36,22 +36,24 @@ namespace Evo {
 
             return out;
         }
+	}
 
+    namespace selector {
         template<typename Value, typename Provider>
-        class FitnessProportional {
+        class fitness_proportional {
         public:
-            FitnessProportional(uint num, Value value, Provider val) : num_elements(num), value_function(value), rand_val_provider(val) {}
+            fitness_proportional(uint num, Value value, Provider val) : num_elements(num), value_function(value), rand_val_provider(val) {}
 
             template<typename In, typename Out>
             inline Out operator()(In first, In last, Out out) {
-                return fitness_proportional(first, last, out, num_elements, value_function, rand_val_provider);
+                return select::fitness_proportional(first, last, out, num_elements, value_function, rand_val_provider);
             }
         private:
             uint num_elements;
             Value value_function;
             Provider rand_val_provider;
         };
-	}
+    }
 }
 
 #endif

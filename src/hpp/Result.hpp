@@ -19,8 +19,11 @@ namespace Evo {
             num_solutions.push_back(std::distance(first, last));
 
             if (max >= max_fitness) {
-                if (max > max_fitness)
+                if (max > max_fitness) {
                     solutions.clear();
+                    max_fitness = max;
+                }
+
                 solutions.insert(first, last);
             }
         }

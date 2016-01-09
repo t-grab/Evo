@@ -24,15 +24,17 @@ namespace Evo {
 
             return out;
         }
+    }
 
+    namespace selector {
         template<typename Value>
-        class Tournament {
+        class tournament {
         public:
-            Tournament(uint num, uint k, Value value) : num_elements(num), tournament_size(k), value_function(value) {}
+            tournament(uint num, uint k, Value value) : num_elements(num), tournament_size(k), value_function(value) {}
 
             template<typename In, typename Out>
             inline Out operator()(In first, In last, Out out) {
-                return tournament(first, last, out, num_elements, tournament_size, value_function);
+                return select::tournament(first, last, out, num_elements, tournament_size, value_function);
             }
         private:
             uint num_elements;

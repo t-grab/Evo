@@ -19,7 +19,7 @@ namespace Evo {
 
             for (auto& gene : genes) {
                 auto iter = std::next(individual.begin(), gene);
-                *iter = random(gene, *iter);
+                *iter = random(individual, iter);
             }
 
             return individual;
@@ -27,12 +27,9 @@ namespace Evo {
 
         template<typename T, typename Predicate, typename Random>
         T point_loop(T individual, Predicate pred, Random random) {
-            int i = 0;
-            for (auto& var : individual) {
-                if (pred())
-                    var = random(i, var);
-                ++i;
-            }
+            for (auto iter = individual.begin(); iter != individual.end(); std::advance(iter, 1))
+                if (pred(individual, iter))
+                    *iter = random(individual, iter);
 
             return individual;
         }
