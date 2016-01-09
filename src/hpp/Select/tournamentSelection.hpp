@@ -24,6 +24,21 @@ namespace Evo {
 
             return out;
         }
+
+        template<typename Value>
+        class Tournament {
+        public:
+            Tournament(uint num, uint k, Value value) : num_elements(num), tournament_size(k), value_function(value) {}
+
+            template<typename In, typename Out>
+            inline Out operator()(In first, In last, Out out) {
+                return tournament(first, last, out, num_elements, tournament_size, value_function);
+            }
+        private:
+            uint num_elements;
+            uint tournament_size;
+            Value value_function;
+        };
     }
 }
 
