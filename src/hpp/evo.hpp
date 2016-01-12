@@ -14,5 +14,6 @@
 #include "Recombine/onePointCrossover.hpp"
 
 #include "Mutate/pointMutation.hpp"
+#include "Mutate/creep.hpp"
 
 #endif

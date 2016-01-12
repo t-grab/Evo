@@ -34,6 +34,10 @@ namespace Evo {
             diversity.push_back(div);
         }
 
+        M max() const {
+            return max_fitness;
+        }
+
         std::unordered_set<T>& fittest() {
             return solutions;
         }
